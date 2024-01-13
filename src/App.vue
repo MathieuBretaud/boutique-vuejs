@@ -84,8 +84,9 @@ const filteredProducts = computed(() => {
     <TheHeader class="header b1" />
     <Shop
       @update-filter="updateFilter"
-      :products="filteredProducts"
       @add-product-to-cart="addProductToCart"
+      :products="filteredProducts"
+      :filters="state.filters"
       class="shop"
     />
     <Cart
