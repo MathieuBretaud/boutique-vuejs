@@ -17,7 +17,7 @@ const emit = defineEmits<{
       @add-product-to-cart="emit('addProductToCart', $event)"
       v-for="product of products"
       :product="product"
-      :key="product.title"
+      :key="product.id"
     />
   </div>
 </template>
