@@ -1,11 +1,14 @@
+import type { ProductInterface } from '@/interfaces'
+
 export default [
   {
     id: 1,
-    image: 'https://media.ldlc.com/r1600/ld/products/00/05/82/01/LD0005820198_1.jpg',
+    image: 'src/assets/images/macbookpro.PNG',
     title: 'Macbook Pro',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 1500
+    price: 1500,
+    category: 'desktop'
   },
   {
     id: 2,
@@ -13,7 +16,8 @@ export default [
     title: 'Levono Pro',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 2300
+    price: 2300,
+    category: 'desktop'
   },
   {
     id: 3,
@@ -21,7 +25,8 @@ export default [
     title: 'Rider',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 1200
+    price: 1200,
+    category: 'gamer'
   },
   {
     id: 4,
@@ -29,7 +34,8 @@ export default [
     title: 'LDLC benolo',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 4500
+    price: 4500,
+    category: 'streaming'
   },
   {
     id: 5,
@@ -37,7 +43,8 @@ export default [
     title: 'Asus gamer',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 3755
+    price: 3755,
+    category: 'gamer'
   },
   {
     id: 6,
@@ -45,7 +52,8 @@ export default [
     title: 'Rog desktop',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 2452
+    price: 2452,
+    category: 'streaming'
   },
   {
     id: 7,
@@ -53,7 +61,8 @@ export default [
     title: 'MSI play',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 1478
+    price: 1478,
+    category: 'gamer'
   },
   {
     id: 8,
@@ -61,6 +70,7 @@ export default [
     title: 'Think pad',
     description:
       'Lorem ipsum dolor sit amet consectetur adipisicing edolor tempore ipsam cum ipsum reiciendis',
-    price: 899
+    price: 899,
+    category: 'desktop'
   }
-]
+] as ProductInterface[]
