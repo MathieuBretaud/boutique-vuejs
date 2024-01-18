@@ -1,10 +1,11 @@
-import type {Category} from "@/interfaces/type";
+import type {Category} from './type';
 
 export interface ProductInterface {
-    id: number
-    title: string
-    image: string
-    price: number
-    description: string
-    category: Category
+    _id: string;
+    createdAt: string;
+    title: string;
+    image: string;
+    price: number;
+    description: string;
+    category: Category;
 }
