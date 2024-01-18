@@ -174,3 +174,21 @@ body {
   background-color: white;
   padding: 30px;
 }
+
+input, textarea, select {
+  border: var(--border);
+  border-radius: var(--border-radius);
+  padding: 8px 15px;
+}
+
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-3);
+}
+
+.form-error {
+  color: var(--danger-1);
+  font-size: 14px;
+  font-weight: 500;
+}
