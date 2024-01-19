@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ProductCartInterface } from '@/interfaces'
+import type {ProductCartInterface} from '@/interfaces'
 import CartProduct from './CartProduct.vue'
 
 defineProps<{
@@ -7,17 +7,17 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'removeProductFromCart', productId: number): void
+  (e: 'removeProductFromCart', productId: string): void
 }>()
 </script>
 
 <template>
   <div class="d-flex flex-column">
     <CartProduct
-      v-for="product of cart"
-      :product="product"
-      v-bind:key="product.id"
-      @remove-product-from-cart="emit('removeProductFromCart', $event)"
+        v-for="product of cart"
+        :product="product"
+        v-bind:key="product._id"
+        @remove-product-from-cart="emit('removeProductFromCart', $event)"
     />
   </div>
 </template>

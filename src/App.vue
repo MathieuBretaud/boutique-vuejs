@@ -29,7 +29,9 @@ function navigate(page: Page): void {
   <div class="app-container">
     <TheHeader @navigate="navigate" :page="state.page" class="header"/>
     <div class="app-content">
-      <Component :is="pages[state.page]"/>
+      <Suspense>
+        <Component :is="pages[state.page]"/>
+      </Suspense>
     </div>
     <TheFooter class="footer"/>
   </div>
@@ -40,7 +42,7 @@ function navigate(page: Page): void {
 @use './assets/scss/debug.scss' as *;
 
 .app-container {
-  min-height: 100vh;
+  height: 100vh;
   display: grid;
   grid-template-areas: 'header' 'app-content' 'footer';
   grid-template-rows: 48px auto 48px;

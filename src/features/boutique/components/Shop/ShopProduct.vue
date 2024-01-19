@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { ProductInterface } from '@/interfaces'
+import type {ProductInterface} from '@/interfaces'
 
 defineProps<{
   product: ProductInterface
 }>()
 
 const emit = defineEmits<{
-  (e: 'addProductToCart', productId: number): void
+  (e: 'addProductToCart', productId: string): void
 }>()
 </script>
 
@@ -31,6 +31,7 @@ const emit = defineEmits<{
   background-color: #ffffff;
   border: var(--border);
   border-radius: var(--border-radius);
+
   &-image {
     border-top-right-radius: var(--border-radius);
     border-top-left-radius: var(--border-radius);
