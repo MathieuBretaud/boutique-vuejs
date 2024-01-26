@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Shop from './components/Shop/Shop.vue';
 import Cart from './components/Cart/Cart.vue';
-import {computed, reactive} from 'vue';
+import {computed, reactive, watchEffect, watch, provide, toRef} from 'vue';
 import type {
   FiltersInterface,
   ProductCartInterface,
@@ -9,25 +9,45 @@ import type {
   FilterUpdate,
 } from '../../interfaces';
 import {DEFAULT_FILTERS} from './data/filters';
+import {fetchProducts} from '../../shared/services/product.service';
+import {pageKey} from '../../shared/injectionKeys/pageKey';
 
 const state = reactive<{
   products: ProductInterface[];
   cart: ProductCartInterface[];
   filters: FiltersInterface;
+  page: number;
+  isLoading: boolean;
+  moreResults: boolean;
 }>({
   products: [],
   cart: [],
   filters: {...DEFAULT_FILTERS},
+  page: 1,
+  isLoading: true,
+  moreResults: true,
 });
 
-const products = await (
-    await fetch('https://restapi.fr/api/projetproducts')
-).json();
-if (Array.isArray(products)) {
-  state.products = products;
-} else {
-  state.products = [products];
-}
+provide(pageKey, toRef(state, 'page'));
+
+watch(state.filters, () => {
+  state.page = 1;
+  state.products = [];
+});
+
+watchEffect(async () => {
+  state.isLoading = true;
+  const products = await fetchProducts(state.filters, state.page);
+  if (Array.isArray(products)) {
+    state.products = [...state.products, ...products];
+    if (products.length < 20) {
+      state.moreResults = false;
+    }
+  } else {
+    state.products = [...state.products, products];
+  }
+  state.isLoading = false;
+});
 
 function addProductToCart(productId: string): void {
   const product = state.products.find((product) => product._id === productId);
@@ -50,7 +70,7 @@ function removeProductFromCart(productId: string): void {
   if (productFromCart?.quantity === 1) {
     state.cart = state.cart.filter((product) => product._id !== productId);
   } else {
-    productFromCart!.quantity--;
+    productFromCart.quantity--;
   }
 }
 
@@ -73,11 +93,7 @@ const filteredProducts = computed(() => {
     if (
         product.title
             .toLocaleLowerCase()
-            .startsWith(state.filters.search.toLocaleLowerCase()) &&
-        product.price >= state.filters.priceRange[0] &&
-        product.price <= state.filters.priceRange[1] &&
-        (product.category === state.filters.category ||
-            state.filters.category === 'all')
+            .startsWith(state.filters.search.toLocaleLowerCase())
     ) {
       return true;
     } else {
@@ -91,9 +107,11 @@ const filteredProducts = computed(() => {
   <div class="boutique-container" :class="{ 'grid-empty': cartEmpty }">
     <Shop
         @update-filter="updateFilter"
+        @add-product-to-cart="addProductToCart"
+        @inc-page="state.page++"
         :products="filteredProducts"
         :filters="state.filters"
-        @add-product-to-cart="addProductToCart"
+        :more-results="state.moreResults"
         class="shop"
     />
     <Cart
